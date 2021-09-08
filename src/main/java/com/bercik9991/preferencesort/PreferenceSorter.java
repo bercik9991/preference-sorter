@@ -173,7 +173,7 @@ public class PreferenceSorter {
     if (scanner.hasNextLine()) {
       j = Integer.parseInt(scanner.nextLine());
 
-      if (j >= 1 && j < listSize + 1) {
+      if (j < 1 || j > listSize) {
         System.out.println("Index [" + j + "] is out of bounds [1, " + listSize + "].");
         return;
       }
@@ -182,7 +182,7 @@ public class PreferenceSorter {
 
     int direction = Integer.signum(i - j);
     if (direction != 0) {
-      Collections.rotate(items.subList(i, j + 1), direction);
+      Collections.rotate(items.subList(Math.min(i, j), Math.max(i, j) + 1), direction);
     } else {
       System.out.println("Source index is the same as destination index.");
     }
@@ -254,7 +254,7 @@ public class PreferenceSorter {
     if (scanner.hasNextLine()) {
       i = Integer.parseInt(scanner.nextLine());
 
-      if (i < 1 || i > items.size()) {
+      if (i < 1 || i > listSize) {
         System.out.println("Index [" + i + "] is out of bounds [1, " + listSize + "].");
         return;
       }
@@ -265,7 +265,7 @@ public class PreferenceSorter {
     if (scanner.hasNextLine()) {
       j = Integer.parseInt(scanner.nextLine());
 
-      if (j >= 1 && j < items.size() + 1) {
+      if (j < 1 || j > listSize) {
         System.out.println("Index [" + j + "] is out of bounds [1, " + listSize + "].");
         return;
       }
