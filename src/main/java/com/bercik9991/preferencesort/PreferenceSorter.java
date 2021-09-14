@@ -20,17 +20,12 @@ public class PreferenceSorter {
   private static final String APP_VERSION = "0.0.1";
   private static final Integer MAX_LIST_SIZE = 2048;
 
-  // TODO In short term, implement input handling (including error handling) in scanner wrapper
-  // TODO In long term, replace scanner with alternative, non-blocking input handlers
   private final Scanner scanner = new Scanner(System.in);
   private Predicate<String> predicate = item -> true;
   private int pageSize = 20;
   private int currentPageNumber = 1;
 
-  // TODO Find a way to remember items' original indices despite filtering
-  // TODO Is TreeMap<Integer, String> good for this use case?
-  // private List<String> items = new ArrayList<>();
-  private List<String> items = new ArrayList<>(480);
+  private List<String> items = new ArrayList<>();
 
   public static void main(String[] args) {
     PreferenceSorter preferenceSorter = new PreferenceSorter();
@@ -119,7 +114,6 @@ public class PreferenceSorter {
         System.out.println("New item added to the end of the list.");
       } else {
         newItemIndex = Integer.parseInt(input);
-        // TODO New item index - Error handling
       }
     }
 
@@ -311,7 +305,6 @@ public class PreferenceSorter {
   }
 
   private int getPageCount() {
-    // TODO Fix returning wrong value when list is filtered
     return items.size() / pageSize + 1;
   }
 
@@ -325,7 +318,6 @@ public class PreferenceSorter {
     }
 
     try {
-      // TODO handle case when max allowed size is exceeded during import
       final Path path = Paths.get(input);
       items = Files.readAllLines(path).stream()
         .map(line -> line.replaceAll("[,\"]",""))
